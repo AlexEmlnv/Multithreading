@@ -9,16 +9,15 @@ public class ThreadState {
     }
 
    public static void main(String[] args) {
-        Thread first = new MyThread();
-        Thread second = new MyThread();
-        first.start();
-        second.start();
-       try {
-           first.join();
-           second.join();
-       } catch (InterruptedException e) {
-           throw new RuntimeException(e);
+       Thread first = new MyThread();
+       Thread second = new MyThread();
+       first.start();
+       second.start();
+       while (first.getState() != Thread.State.TERMINATED
+              || second.getState() != Thread.State.TERMINATED) {
+           System.out.println(first.getName() + ": " + first.getState());
+           System.out.println(second.getName() + ": " + second.getState());
        }
-       System.out.println("The work is completed");
+       System.out.println("The work is completed!");
     }
 }
