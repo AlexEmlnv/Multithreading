@@ -7,7 +7,7 @@ public class ConsoleProgress implements Runnable {
         int symbolIndex = 0;
         while (!Thread.currentThread().isInterrupted()) {
             System.out.print("\r Load: " + process[symbolIndex]);
-            if (symbolIndex == 3) {
+            if (symbolIndex == process.length - 1) {
                 symbolIndex = 0;
             } else {
                 symbolIndex++;
@@ -15,7 +15,7 @@ public class ConsoleProgress implements Runnable {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
             }
         }
     }
