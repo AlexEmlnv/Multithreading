@@ -46,7 +46,6 @@ public class Wget2 implements Runnable {
     }
 
     public static boolean urlValidator(String url) {
-        // Get an `UrlValidator` using default schemes
         UrlValidator defaultValidator = new UrlValidator();
         return url != null && !url.isEmpty() && defaultValidator.isValid(url);
     }
