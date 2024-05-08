@@ -19,7 +19,8 @@ public class Wget2 implements Runnable {
     @Override
     public void run() {
         var startAt = System.currentTimeMillis();
-        var file = new File("tmp.xml");
+        var targetFileName = url.substring(url.lastIndexOf('/') + 1);
+        var file = new File(targetFileName);
         try (var input = new URL(url).openStream();
              var output = new FileOutputStream(file)) {
             System.out.println("Open connection: " + (System.currentTimeMillis() - startAt) + " ms");
@@ -51,6 +52,10 @@ public class Wget2 implements Runnable {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        if (args == null || args.length == 0) {
+            System.out.println("Нет входных данных!");
+            return;
+        }
         String url = args[0];
         int speed = Integer.parseInt(args[1]);
         if (!urlValidator(url) || speed <= 0) {
