@@ -51,17 +51,13 @@ public class Wget2 implements Runnable {
         return url != null && !url.isEmpty() && defaultValidator.isValid(url);
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        if (args == null || args.length == 0) {
-            System.out.println("Нет входных данных!");
-            return;
+    public static void main(String[] args) throws IllegalArgumentException, InterruptedException {
+        if (args == null || args.length == 0
+            || !urlValidator(args[0]) || Integer.parseInt(args[1]) <= 0) {
+            throw new IllegalArgumentException();
         }
         String url = args[0];
         int speed = Integer.parseInt(args[1]);
-        if (!urlValidator(url) || speed <= 0) {
-            System.out.println("Невалидные входные параметры!");
-            return;
-        }
         Thread wget = new Thread(new Wget2(url, speed));
         wget.start();
         wget.join();
