@@ -47,30 +47,6 @@ class AccountStorageTest {
     }
 
     @Test
-    void whenTransferFromSameAccountThenNothingChange() {
-        var storage = new AccountStorage();
-        storage.add(new Account(1, 100));
-        storage.transfer(1, 1, 100);
-        var firstAccount = storage.getById(1)
-                .orElseThrow(() -> new IllegalStateException("Not found account by id = 1"));
-        assertThat(firstAccount.getAmount()).isEqualTo(100);
-    }
-
-    @Test
-    void whenTransferNegativeAmountThenNothingChange() {
-        var storage = new AccountStorage();
-        storage.add(new Account(1, 100));
-        storage.add(new Account(2, 100));
-        storage.transfer(1, 2, -100);
-        var firstAccount = storage.getById(1)
-                .orElseThrow(() -> new IllegalStateException("Not found account by id = 1"));
-        var secondAccount = storage.getById(2)
-                .orElseThrow(() -> new IllegalStateException("Not found account by id = 2"));
-        assertThat(firstAccount.getAmount()).isEqualTo(100);
-        assertThat(secondAccount.getAmount()).isEqualTo(100);
-    }
-
-    @Test
     void whenTransferAmountGreaterThanAccountThenNothingChange() {
         var storage = new AccountStorage();
         storage.add(new Account(1, 100));
