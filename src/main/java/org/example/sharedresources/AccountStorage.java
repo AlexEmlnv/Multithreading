@@ -9,11 +9,8 @@ public class AccountStorage {
 
     public boolean add(Account account) {
         synchronized (accounts) {
-            if (accounts.containsKey(account.getId())) {
-                return false;
-            }
-            accounts.put(account.getId(), account);
-            return true;
+            Account previous = accounts.putIfAbsent(account.getId(), account);
+            return previous == null;
         }
     }
 
@@ -23,7 +20,8 @@ public class AccountStorage {
                 return false;
             }
             accounts.put(account.getId(), account);
-            return true;
+            Account previous = accounts.replace(account.getId(), account);
+            return previous != null;
         }
     }
 
@@ -41,15 +39,14 @@ public class AccountStorage {
 
     public boolean transfer(int fromId, int toId, int amount) {
         synchronized (accounts) {
-            if (!accounts.containsKey(fromId) || !accounts.containsKey(toId) || amount <= 0
-                || this.getById(fromId).get().getAmount() < amount || fromId == toId
-                || (this.getById(toId).get().getAmount() + amount) > Integer.MAX_VALUE) {
+            Optional<Account> fromAccount = this.getById(fromId);
+            Optional<Account> toAccount = this.getById(toId);
+            if (!fromAccount.isPresent() || !toAccount.isPresent()
+                || fromAccount.get().getAmount() <  amount) {
                 return false;
             }
-            Account fromAccount = this.getById(fromId).get();
-            Account toAccount = this.getById(toId).get();
-            this.update(new Account(fromId, fromAccount.getAmount() - amount));
-            this.update(new Account(toId, toAccount.getAmount() + amount));
+            this.update(new Account(fromId, fromAccount.get().getAmount() - amount));
+            this.update(new Account(toId, toAccount.get().getAmount() + amount));
             return true;
         }
     }
