@@ -16,10 +16,6 @@ public class AccountStorage {
 
     public boolean update(Account account) {
         synchronized (accounts) {
-            if (!accounts.containsKey(account.getId())) {
-                return false;
-            }
-            accounts.put(account.getId(), account);
             Account previous = accounts.replace(account.getId(), account);
             return previous != null;
         }
