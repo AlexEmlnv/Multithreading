@@ -6,7 +6,7 @@ class SimpleBlockingQueueTest {
 
     @Test
     public void whenWork() throws InterruptedException {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         Thread consumer = new Thread(
                 () -> {
                     try {
