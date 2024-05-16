@@ -15,14 +15,17 @@ class SimpleBlockingQueueTest {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-
                 }
                 , "Consumer");
 
         Thread producer = new Thread(
                 () -> {
-                    queue.offer(1);
-                    System.out.println(Thread.currentThread().getName() + " saved in queue value '" + 1 + "'.");
+                    try {
+                        queue.offer(1);
+                        System.out.println(Thread.currentThread().getName() + " saved in queue value '" + 1 + "'.");
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 , "Producer");
 

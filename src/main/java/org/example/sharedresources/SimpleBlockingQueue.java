@@ -17,13 +17,12 @@ public class SimpleBlockingQueue<T> {
         this.maxSize = size;
     }
 
-    public synchronized void offer(T value) {
-        if (queue.size() < maxSize) {
-            queue.offer(value);
-            notifyAll();
-        } else {
-            System.out.println("The object was not added to the queue because the maximum queue size was reached.");
+    public synchronized void offer(T value) throws InterruptedException {
+        while (queue.size() == maxSize) {
+            wait();
         }
+        queue.offer(value);
+        notifyAll();
     }
 
     public synchronized T poll() throws InterruptedException {
