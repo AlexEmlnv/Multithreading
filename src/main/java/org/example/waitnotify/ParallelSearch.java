@@ -1,7 +1,5 @@
 package org.example.waitnotify;
 
-import org.example.sharedresources.SimpleBlockingQueue;
-
 public class ParallelSearch {
     public static void main(String[] args) {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(3);

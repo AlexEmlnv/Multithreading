@@ -1,5 +1,6 @@
 package org.example.sharedresources;
 
+import org.example.waitnotify.SimpleBlockingQueue;
 import org.junit.jupiter.api.Test;
 
 class SimpleBlockingQueueTest {

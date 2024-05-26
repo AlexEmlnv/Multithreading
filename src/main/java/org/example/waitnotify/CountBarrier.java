@@ -1,4 +1,4 @@
-package org.example.sharedresources;
+package org.example.waitnotify;
 
 public class CountBarrier {
     private final  Object monitor = this;
