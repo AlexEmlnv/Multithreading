@@ -1,7 +1,6 @@
-package org.example.sharedresources;
+package org.example.waitnotify;
 
 import org.assertj.core.api.Assertions;
-import org.example.waitnotify.SimpleBlockingQueue;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CopyOnWriteArrayList;
