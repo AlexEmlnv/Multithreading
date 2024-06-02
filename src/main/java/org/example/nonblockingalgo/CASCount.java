@@ -18,12 +18,6 @@ public class CASCount {
     }
 
     public int get() {
-        int ref;
-        int temp;
-        do {
-            ref = count.get();
-            temp = ref;
-        } while (!count.compareAndSet(ref, temp));
-        return ref;
+        return count.get();
     }
 }
